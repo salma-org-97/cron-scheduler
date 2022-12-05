@@ -1,8 +1,7 @@
-// this is the class that emits the events
 const EventEmitter = require('events')
 
 class Scheduler extends EventEmitter {
-    constructor(frequency){
+    constructor(frequency) {
         super()
         this.frequency = frequency
     }

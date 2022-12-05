@@ -1,4 +1,4 @@
-const { createCronjob }  = require('./index')
+const { createCronjob }  = require('../index')
 
 const printHelloWorld = () => {
     console.log('hello world')
@@ -18,6 +18,6 @@ createCronjob({
     frequency: 5000,
     expectedRunDuration: 20,
     func: printByeWorld,
-    jobID: 2
+    jobID: 1
 })
 
