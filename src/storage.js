@@ -24,7 +24,17 @@ class ScheduledJobsMap {
     getLength() {
         return this.map.size
     }
+
+    /**
+     * Removes all jobs from the map.
+     * @returns
+     */
+    clear() {
+        return this.map.clear()
+    }
 }
+
+
 
 let scheduledJobs = Object.freeze(new ScheduledJobsMap)
 
