@@ -9,6 +9,7 @@
   "author": "Salma Zaki",
   "license": "ISC",
   "dependencies": {
+    "lodash": "^4.17.21",
     "winston": "^3.8.2"
   }
 }
