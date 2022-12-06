@@ -15,23 +15,38 @@ const _ = require('lodash')
  */
 async function createCronjob({ frequency, expectedRunDuration, func, jobID }) {
     try {
-        // validations
-        if(scheduledJobs.map.has(jobID)) throw Error('Job creation failed. Reason: Duplicate job IDs')
-        if(!_.isString(jobID)) throw Error('Invalid jobID - must be string')
-        if(!_.isFunction(func)) throw Error('Invalid func - must be in proper function syntax')
-        if(!_.isString(frequency)) throw Error('Invalid frequency - must be string')
-        if(!_validateFrequency(frequency)) throw Error('Invalid frequency format')
-        if(!_.isString(expectedRunDuration)) throw Error('Invalid expectedRunDuration - must be string')
-        if(!_validateExpectedRunDuration(expectedRunDuration)) throw Error('Invalid expectedRunDuration format')
+        // validate arguments
+        const errMsg = _validateArgs({ frequency, expectedRunDuration, func, jobID })
+        if (errMsg) throw Error(errMsg)
 
+        // format frequency
         const freqMsecs = convertToMillisecs(frequency)
+
+        // schedule & save job
         const job = new Job({ frequency: freqMsecs, expectedRunDuration, func, jobID })
         await job.schedule()
         scheduledJobs.save(jobID, job)
         logger.info(`Successfully created cronjob with ID ${jobID}`)
-    } catch (err) {
+    } catch(err) {
         logger.error(err.message)
     }
+}
+
+function _validateArgs({ frequency, expectedRunDuration, func, jobID }) {
+    const failMsg = `Failed to create job with ID: ${jobID}.`
+    let errMsg = ''
+    if (!frequency) errMsg = `${failMsg} Missing argument 'frequency'`
+    else if (!expectedRunDuration) errMsg = `${failMsg} Missing argument 'expectedRunDuration'`
+    else if (!func) errMsg = `${failMsg} Missing argument 'func'`
+    else if (!jobID) errMsg = `${failMsg} Missing argument 'jobID'`
+    else if (!_.isString(jobID)) errMsg = `${failMsg} Invalid jobID - must be string`
+    else if (scheduledJobs.map.has(jobID)) errMsg = `${failMsg} Reason: Duplicate job IDs`
+    else if (!_.isFunction(func)) errMsg = `${failMsg} Invalid func - must be in proper function syntax`
+    else if (!_.isString(frequency)) errMsg = `${failMsg} Invalid frequency - must be string`
+    else if (!_validateFrequency(frequency)) errMsg = `${failMsg} Invalid frequency format`
+    else if (!_.isString(expectedRunDuration)) errMsg = `${failMsg} Invalid expectedRunDuration - must be string`
+    else if (!_validateExpectedRunDuration(expectedRunDuration)) errMsg = `${failMsg} Invalid expectedRunDuration format`
+    return errMsg
 }
 
 /**
@@ -39,7 +54,7 @@ async function createCronjob({ frequency, expectedRunDuration, func, jobID }) {
  * @param  {string} frequency The scheduling frequency
  * @returns {boolean} Whether the frequency format is valid or not
  */
-function _validateFrequency (frequency) {
+function _validateFrequency(frequency) {
     return (frequency.includes('day') || frequency.includes('hr') || frequency.includes('min') || frequency.includes('sec'))
     // TODO: add more validations
 }
