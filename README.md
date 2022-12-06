@@ -1,12 +1,11 @@
 # cron-scheduler
 
 ## Description
-The cron-scheduler module is a simplified version of an in-process, concurrent cronjob scheduler that accepts a job & executes it periodically.
+The cron-scheduler module is a simplified version of an in-process cronjob scheduler that accepts a job & executes it periodically.
 
 ## Reasoning behind technical decisions
  - Node.js is based on the event-driven architecture, which responds to emitted events by running their callbacks 
-in the event loop. It also supports non-blocking IO operations, meaning that any heavy-duty tasks are offloaded to background
-threads to avoid blocking its single thread. As a result, these features made Nodejs convenient to implement a cron-scheduler. 
+in the event loop. It also supports non-blocking IO operations, meaning that any heavy-duty tasks are offloaded to system kernel to avoid blocking its single thread. As a result, these features made Nodejs convenient to implement a cron-scheduler. 
 
 - The `EventEmitter` class was used to emit an event for each job at its scheduled time & each job's event listener executes the 
 job implementation on receiving this event.
@@ -14,7 +13,7 @@ job implementation on receiving this event.
 - The `setInterval` function is what each job scheduler uses to fire events according to the job's scheduling frequency.
 
 - Concurrency is achieved through this design due to Node.js's asynchronous non-blocking event-driven nature, which is able to respond 
-to events & execute multiple operations in the background using its worker threads.
+to events & execute multiple operations in the background.
 
 ## Trade-offs made
 There is a limitation on the delay argument used by the `setInterval`, as it is a signed 32-bit integer. This effectively limits its value to a maximum of 2147483647 ms, which corresponds to almost 24 days. So this scheduler has a maximum capacity of scheduling a job every 24 days.
