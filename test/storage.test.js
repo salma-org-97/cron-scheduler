@@ -2,7 +2,7 @@ const scheduledJobs = require('../src/storage')
 const { expect } = require('./utils/chai')
 
 describe('Test saving job', () => {
-    it ('should successfully save a job & add it to the map', () => {
+    it('should successfully save a job & add it to the map', () => {
         const job = {}
         const jobID = 'testID'
         expect(scheduledJobs.getLength()).to.be.equal(0)
