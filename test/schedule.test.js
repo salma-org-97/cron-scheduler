@@ -17,7 +17,7 @@ describe('Test scheduling cronjob', () => {
             func,
             jobID: '1'
         })
-        // advance 20 seconds in time, where the cronjob should've been scheduled 5 times
+        // Advance 20 seconds in time, where the cronjob should've been scheduled 5 times
         clock.tick('25')
         expect(count).to.be.equal(5)
         expect(scheduledJobs.getLength()).to.be.equal(1)
