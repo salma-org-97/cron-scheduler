@@ -8,18 +8,18 @@ The cron-scheduler module is a simplified version of an in-process, concurrent c
 in the event loop. It also supports non-blocking IO operations, meaning that any heavy-duty tasks are offloaded to background
 threads to avoid blocking its single thread. As a result, these features made Nodejs convenient to implement a cron-scheduler. 
 
-- The eventEmitter class was used to emit an event for each job at its scheduled time & each job's event listener executes the 
+- The `EventEmitter` class was used to emit an event for each job at its scheduled time & each job's event listener executes the 
 job implementation on receiving this event.
 
-- The setInterval function is what each job scheduler uses to fire events according to the job's scheduling frequency.
+- The `setInterval` function is what each job scheduler uses to fire events according to the job's scheduling frequency.
 
 - Concurrency is achieved through this design due to Node.js's asynchronous non-blocking event-driven nature, which is able to respond 
 to events & execute multiple operations in the background using its worker threads.
 
 ## Trade-offs made
-There is a limitation on the delay argument used by the setInterval, as it is a signed 32-bit integer. This effectively limits its value to a maximum of 2147483647 ms, which corresponds to almost 24 days. So this scheduler has a maximum capacity of scheduling a job every 24 days.
+There is a limitation on the delay argument used by the `setInterval`, as it is a signed 32-bit integer. This effectively limits its value to a maximum of 2147483647 ms, which corresponds to almost 24 days. So this scheduler has a maximum capacity of scheduling a job every 24 days.
 
-The trade-off made here is the simplicity & convenience of using the setInterval function VS the limitation on its max delay.
+The trade-off made here is the simplicity & convenience of using the `setInterval` function VS the limitation on its max delay.
 
 ## Usage
 
@@ -44,13 +44,13 @@ createCronJob({
 })
 
 ```
-The scheduling frequency represents how frequent we want to run our cronjob. For example, "1hr" means we should run the cronjob every hour.
+The scheduling frequency represents how frequent we want to run our cronjob. For example, `1hr` means we should run the cronjob every hour.
 
 ### Supported Formats for the Scheduling Frequency:
-- (1-59)sec
-- (1-59)min
-- (1-23)hr
-- (1-365)day
+- `(1-59)sec`
+- `(1-59)min`
+- `(1-23)hr`
+- `(1-365)day`
 
 ## How to run tests:
 
@@ -58,5 +58,5 @@ The scheduling frequency represents how frequent we want to run our cronjob. For
 
 ## Possible future improvements
 1. External persistence such as a database or cache can be used to store the created cronjobs to handle any faults.
-2. The library can be enhanced to support real cron-expressions such as * * * * *.
+2. The library can be enhanced to support real cron-expressions such as `* * * * *`.
 
