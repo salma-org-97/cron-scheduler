@@ -51,7 +51,7 @@ The scheduling frequency represents how frequent we want to run our cronjob. For
 - `(1-59)sec`
 - `(1-59)min`
 - `(1-23)hr`
-- `(1-365)day`
+- `(1-24)day`
 
 ## How to run tests:
 
