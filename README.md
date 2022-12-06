@@ -58,6 +58,6 @@ The scheduling frequency represents how frequent we want to run our cronjob. For
 	$ npm test
 
 ## Possible future improvements
-1. External persistence such as a database or cache can be used to store the created cronjobs to handle any faults.
+1. External persistence such as a database can be used to store the created cronjobs in case the process exits.
 2. The library can be enhanced to support real cron-expressions such as `* * * * *`.
 3. A queue, such as SQS, can be used to save the jobs, & a worker can be used to process these jobs concurrently, where we can specify the number of concurrent tasks that the worker can consume & execute.
