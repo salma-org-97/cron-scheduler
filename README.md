@@ -21,6 +21,8 @@ There is a limitation on the delay argument used by the `setInterval`, as it is 
 
 The trade-off made here is the simplicity & convenience of using the `setInterval` function VS the limitation on its max delay.
 
+Another limitation that this solution has, is that we cannot specify the number of concurrent tasks.
+
 ## Usage
 
 Import cron-scheduler & create a cronjob to be scheduled.
