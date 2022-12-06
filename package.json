@@ -1,15 +1,19 @@
 {
   "name": "cron-scheduler",
   "version": "1.0.0",
-  "description": "",
+  "description": "The cron-scheduler module is a simplified version of an in-process, concurrent cronjob scheduler that accepts a job & executes it periodically.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "Salma Zaki",
   "license": "ISC",
   "dependencies": {
     "lodash": "^4.17.21",
     "winston": "^3.8.2"
+  },
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "mocha": "^10.1.0"
   }
 }
