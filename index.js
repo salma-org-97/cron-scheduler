@@ -16,7 +16,7 @@ const _ = require('lodash')
 async function createCronjob({ frequency, expectedRunDuration, func, jobID }) {
     try {
         // validations
-        if(scheduledJobs.has(jobID)) throw Error('Job creation failed. Reason: Duplicate job IDs')
+        if(scheduledJobs.map.has(jobID)) throw Error('Job creation failed. Reason: Duplicate job IDs')
         if(!_.isString(jobID)) throw Error('Invalid jobID - must be string')
         if(!_.isFunction(func)) throw Error('Invalid func - must be in proper function syntax')
         if(!_.isString(frequency)) throw Error('Invalid frequency - must be string')
@@ -27,7 +27,7 @@ async function createCronjob({ frequency, expectedRunDuration, func, jobID }) {
         const freqMsecs = convertToMillisecs(frequency)
         const job = new Job({ frequency: freqMsecs, expectedRunDuration, func, jobID })
         await job.schedule()
-        scheduledJobs.set(jobID, job)
+        scheduledJobs.save(jobID, job)
         logger.info(`Successfully created cronjob with ID ${jobID}`)
     } catch (err) {
         logger.error(err.message)
