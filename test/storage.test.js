@@ -1,5 +1,5 @@
 const scheduledJobs = require('../src/storage')
-const { expect } = require('chai')
+const { expect } = require('./utils/chai')
 
 describe('Test saving job', () => {
     it ('should successfully save a job & add it to the map', () => {

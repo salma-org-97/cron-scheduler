@@ -1,5 +1,5 @@
 const convertToMillisecs = require('../utils/time-converters')
-const { expect } = require('chai')
+const { expect } = require('./utils/chai')
 
 describe('Test time converters', () => {
     it('should convert frequency in seconds to milliseconds', () => {
