@@ -12,8 +12,7 @@ job implementation on receiving this event.
 
 - The `setInterval` function is what each job scheduler uses to fire events according to the job's scheduling frequency.
 
-- Concurrency is achieved through this design due to Node.js's asynchronous non-blocking event-driven nature, which is able to respond 
-to events & execute multiple operations in the background.
+- Concurrency is achieved through this design as the callback function of each event listener is placed in a callback queue, which is then used by the event loop for execution. And if any of the callback functions picked by the event loop is blocking (such as an I/O operation), it is offloaded to the thread pool to avoid blocking the single thread.
 
 ## Trade-offs made
 There is a limitation on the delay argument used by the `setInterval`, as it is a signed 32-bit integer. This effectively limits its value to a maximum of 2147483647 ms, which corresponds to almost 24 days. So this scheduler has a maximum capacity of scheduling a job every 24 days.
@@ -60,4 +59,4 @@ The scheduling frequency represents how frequent we want to run our cronjob. For
 ## Possible future improvements
 1. External persistence such as a database can be used to store the created cronjobs in case the process exits.
 2. The library can be enhanced to support real cron-expressions such as `* * * * *`.
-3. A queue, such as SQS, can be used to save the jobs, & a worker can be used to process these jobs concurrently, where we can specify the number of concurrent tasks that the worker can consume & execute.
+3. A queue, such as SQS, can be used to store the jobs, & a worker can be used to process these jobs concurrently, where we can specify the number of concurrent tasks that the worker can consume & execute.
