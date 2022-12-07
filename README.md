@@ -88,6 +88,7 @@ function printHelloWorld() {
 ```
 
 This would output the following to the console:
+
 ![Screenshot from 2022-12-07 17-48-28](https://user-images.githubusercontent.com/36410337/206225649-d25babc0-d409-4b8b-a978-c5fc4b9039cb.png)
 
 
