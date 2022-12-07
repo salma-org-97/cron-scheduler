@@ -12,7 +12,7 @@ job implementation on receiving this event.
 
 - The `setInterval` function is what each job scheduler uses to fire events according to the job's scheduling frequency.
 
-- Concurrency is achieved through this design as the callback function of each event listener is placed in a callback queue, which is then used by the event loop for execution. And if any of the callback functions picked by the event loop is blocking (such as an I/O operation), it is offloaded to the thread pool to avoid blocking the single thread.
+- Concurrency is achieved through this design as the fired events will add their callbacks (containing the function to be executed) to the timers callback queue. The event loop will consume these events from the queue & process them. And if any of the callback functions picked by the event loop is blocking (such as an I/O operation), it is offloaded to the thread pool to avoid blocking the single thread.
 
 ## Trade-offs made
 There is a limitation on the delay argument used by the `setInterval`, as it is a signed 32-bit integer. This effectively limits its value to a maximum of 2147483647 ms, which corresponds to almost 24 days. So this scheduler has a maximum capacity of scheduling a job every 24 days.
