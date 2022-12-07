@@ -5,8 +5,8 @@ const _ = require('lodash')
  * Validates the cronjob arguments.
  * @param  {string} frequency The scheduling frequency
  * @param  {string} expectedRunDuration The expected duration of a single job run
- * @param {Function} func The function to be executed
- * @param {string} jobID The ID of the cronjob
+ * @param  {Function} func The function to be executed
+ * @param  {string} jobID The ID of the cronjob
  * @returns {string} The validation error message (if any)
  */
 function validateArgs({ frequency, expectedRunDuration, func, jobID }) {

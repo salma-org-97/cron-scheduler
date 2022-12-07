@@ -1,14 +1,20 @@
 const createCronjob = require('./index')
 
-const dummyFunc = () => {
-    let x = 0
-    for (let i = 0; i++; i < 100000) {
-        x = i
-    }
+function resolveAfter5Seconds() {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve('resolved');
+            console.log('Done!')
+        }, 5000);
+    });
 }
 
-const printHelloWorld = () => {
-    console.log('hello world')
+async function delayedOperation() {
+    await resolveAfter5Seconds();
+}
+
+function printHelloWorld() {
+    console.log('Hello world!')
 }
 
 (function main() {
@@ -16,11 +22,11 @@ const printHelloWorld = () => {
     createCronjob({
         frequency: '5sec',
         expectedRunDuration: '1sec',
-        func: dummyFunc,
+        func: delayedOperation,
         jobID: '1'
     })
     createCronjob({
-        frequency: '10sec',
+        frequency: '5sec',
         expectedRunDuration: '5sec',
         func: printHelloWorld,
         jobID: '2'

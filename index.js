@@ -9,8 +9,8 @@ const logger = require('./config/logger')
  * @async
  * @param  {string} frequency The scheduling frequency
  * @param  {string} expectedRunDuration The expected duration of a single job run
- * @param {Function} func The function to be executed
- * @param {string} jobID The ID of the cronjob
+ * @param  {Function} func The function to be executed
+ * @param  {string} jobID The ID of the cronjob
  * @returns
  */
 async function createCronjob({ frequency, expectedRunDuration, func, jobID }) {

@@ -30,11 +30,11 @@ class Job {
         this._scheduler.run()
     }
 
-     /**
-     * Executes the function associated with the job.
-     * @async
-     * @returns
-     */
+    /**
+    * Executes the function associated with the job.
+    * @async
+    * @returns
+    */
     async execute() {
         logger.info(`Starting execution of job ${this.id}`)
         const startTimeInMillisecs = Date.now()
