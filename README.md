@@ -28,6 +28,8 @@ Import cron-scheduler & create a cronjob to be scheduled.
 ### Example 1
 Create a cronjob to be executed every 2 minutes, that is expected to run for 1 second.
 
+Ideally, if this were a published npm package, it should be used as such:
+
 ```javascript
 
 const createCronJob = require('cron-scheduler')
@@ -44,6 +46,51 @@ createCronJob({
 })
 
 ```
+
+Yet currently, it only supports being used within the directory by cloning the repo, as such:
+
+```
+const createCronjob = require('./index')
+
+function resolveAfter5Seconds() {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve('resolved');
+            console.log('Done!')
+        }, 5000);
+    });
+}
+
+async function delayedOperation() {
+    await resolveAfter5Seconds();
+}
+
+function printHelloWorld() {
+    console.log('Hello world!')
+}
+
+(function main() {
+
+    createCronjob({
+        frequency: '5sec',
+        expectedRunDuration: '1sec',
+        func: delayedOperation,
+        jobID: '1'
+    })
+    createCronjob({
+        frequency: '5sec',
+        expectedRunDuration: '5sec',
+        func: printHelloWorld,
+        jobID: '2'
+    })
+
+})()
+```
+
+This would output the following to the console:
+![Screenshot from 2022-12-07 17-48-28](https://user-images.githubusercontent.com/36410337/206225649-d25babc0-d409-4b8b-a978-c5fc4b9039cb.png)
+
+
 The scheduling frequency represents how frequent we want to run our cronjob. For example, `1hr` means we should run the cronjob every hour.
 
 ### Supported Formats for the Scheduling Frequency:
