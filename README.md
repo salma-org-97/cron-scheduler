@@ -1,6 +1,6 @@
 # cron-scheduler
 
-## Descriptionnn
+## Descriptionnne
 The cron-scheduler module is a simplified version of an in-process cronjob scheduler that accepts a job & executes it periodically.
 
 ## Reasoning behind technical decisions
